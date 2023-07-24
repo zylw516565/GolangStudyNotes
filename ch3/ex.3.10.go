@@ -9,6 +9,15 @@ func main() {
 	fmt.Println(commaWithBuffer("12345"))
 	fmt.Println(commaWithBuffer("123456789"))
 
+	s := "abc"
+	b := []byte(s)
+	b2 := [...]byte{'a', 'b', 'c'}
+
+	fmt.Printf("%T, %T, %T\n", s, b, b2)
+	fmt.Println(s, b, b2)
+
+	e := [...]int{10, 3: 100}
+	fmt.Println(e)
 }
 
 func commaWithBuffer(s string) string {
