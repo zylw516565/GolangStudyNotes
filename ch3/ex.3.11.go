@@ -10,8 +10,11 @@ func main() {
 	fmt.Println(commaFloat("12345"))
 	fmt.Println(commaFloat("123456789"))
 
-	fmt.Println(commaFloat("123456789.08960"))
-	fmt.Println(commaFloat("123456789.000000001"))
+	fmt.Println(commaFloat("+123456789.08960"))
+	fmt.Println(commaFloat("+123456789.000000001"))
+
+	fmt.Println(commaFloat("-123456789.08960"))
+	fmt.Println(commaFloat("-123456789.000000001"))
 }
 
 func commaFloat(s string) string {
@@ -26,8 +29,11 @@ func commaFloat(s string) string {
 	for i, n := len(intPart)-1, 0; i >= 0; i-- {
 		n++
 		buf.WriteByte(intPart[i])
-		if 3 == n && 0 != i {
-			buf.WriteByte(',')
+		if 3 == n && i >= 1 {
+			if intPart[i-1] != '+' && intPart[i-1] != '-' {
+				buf.WriteByte(',')
+			}
+
 			n = 0
 		}
 	}
