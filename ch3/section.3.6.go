@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"math"
 )
 
 const (
@@ -56,6 +57,10 @@ const (
 	YiB // 1208925819614629174706176
 )
 
+var x float32 = math.Pi
+var y float64 = math.Pi
+var z complex128 = math.Pi
+
 func main() {
 	fmt.Println(pi)
 
@@ -84,6 +89,9 @@ func main() {
 
 	fmt.Printf("KiB type:%T, MiB type:%T, GiB type:%T, TiB type:%T, PiB type:%T, EiB type:%T\n", KiB, MiB, GiB, TiB, PiB, EiB)
 	fmt.Println(KiB, MiB, GiB, TiB, PiB, EiB)
+
+	fmt.Println(YiB/ZiB)
+	fmt.Println(x, y, z)
 }
 
 func parseIPv4(s string) (IP string) {
