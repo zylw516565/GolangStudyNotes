@@ -61,6 +61,16 @@ var x float32 = math.Pi
 var y float64 = math.Pi
 var z complex128 = math.Pi
 
+const (
+	deadbeef = 0xdeadbeef // untyped int with value 3735928559
+	A = uint32(deadbeef) // uint32 with value 3735928559
+	B = float32(deadbeef) // float32 with value 3735928576 (rounded up)
+	C = float64(deadbeef) // float64 with value 3735928559 (exact)
+	// D = int32(deadbeef) // compile error: constant overflows int32
+	// E = float64(1e309) // compile error: constant overflows float64
+	// F = uint(-1) // compile error: constant underflows uint
+	)
+
 func main() {
 	fmt.Println(pi)
 
@@ -92,7 +102,45 @@ func main() {
 
 	fmt.Println(YiB/ZiB)
 	fmt.Println(x, y, z)
+
+	var f2 float64 = 212
+	fmt.Printf("%T,%v\n", (f2-32) * 5, (f2-32) * 5/9)
+	fmt.Printf("%T,%v\n", 5/9       , 5/9 * (f2-32))
+	fmt.Printf("%T,%v\n", 5.0/9.0   , 5.0/9.0 *(f2-32))
+
+	var f float64 = 3 + 0i
+	fmt.Printf("%T,%v\n", 3 + 0i, f)
+	f = 2
+	fmt.Printf("%T,%v\n", 2, f)
+	f = 1e123
+	fmt.Printf("%T,%v\n", 1e123, f)
+	f = 'a'
+	fmt.Printf("%T,%v\n", 'a', f)
+	f = '京'
+	fmt.Printf("%T,%v\n", '京', f)
+
+	var f3 float64 = float64(3 + 0i)
+	_ = f3
+	fmt.Println(f3)
+	f3 = float64(2)
+	fmt.Println(f3)
+	f3 = float64(1e123)
+	fmt.Println(f3)
+	f3 = float64('a')
+	fmt.Println(f3)
+
+	vali := 0
+	valr := '\000'
+	valf := 0.0
+	valc := 0i
+  fmt.Println(vali, valr, valf, valc)
+
+	fmt.Printf("%T\n", 0) // "int"
+	fmt.Printf("%T\n", 0.0) // "float64"
+	fmt.Printf("%T\n", 0i) // "complex128"
+	fmt.Printf("%T\n", '\000') // "int32" (rune)
 }
+
 
 func parseIPv4(s string) (IP string) {
 	var p [IPv4Len]byte
